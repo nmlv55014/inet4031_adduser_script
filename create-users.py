@@ -52,3 +52,29 @@ def main():
 	#uncommenting os.system(cmd) = real execution which will add the users to ubuntu.
         print cmd
         #os.system(cmd)
+
+	  #Prints a message to show the password is being set for a specific username
+        print("==> Setting the password for %s..." % (username))
+        ## This line builds the Linux command used to set the new user's password.
+	# It uses 'echo -ne' to send the password twice (as required by 'passwd') through a pipe into 'sudo passwd <username>'.
+	# The variable 'cmd' stores the full shell command string that, when executed, will automatically set the user's password.
+        cmd = "/bin/echo -ne '%s\n%s' | /usr/bin/sudo /usr/bin/passwd %s" % (password,password,username)
+
+        #Again, if you uncomment the os.system(cmd) it will build this into the ubuntu system and not just simply print the output.
+        print cmd
+        #os.system(cmd)
+
+        for group in groups:
+            # This IF statement checks whether the group value is not equal to '-',
+	    # A '-' means the user should not be assigned to any groups
+            # IF the condition is true, the script prints a message and runs the command to add the user to the specified group using the 'adduser' command.
+            if group != '-':
+                print("==> Assigning %s to the %s group..." % (username,group))
+                cmd = "/usr/sbin/adduser %s %s" % (username,group)
+                #print cmd
+                #os.system(cmd)
+
+
+
+if __name__ == '__main__':
+    main()
