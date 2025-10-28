@@ -1,17 +1,25 @@
 # inet4031_adduser_script
 
 ## Program Description
-This program automates the process of creating multiple users and groups on an Ubuntu system. Normally, a system administrator would need to manually type several commands such as `sudo adduser`, `sudo groupadd`, and `sudo usermod -aG` for each account. This script simplifies that process by reading an input file that lists all the users to be created and automatically runs those same Linux commands through Python’s `os.system()` function.
+This program automates creating multiple Linux user accounts on Ubuntu using Python. Instead of manually running commands like `adduser`, `passwd`, and adding users to groups, the script reads a structured input file and executes **those same commands** for each user:
 
-By using this automated method, administrators can quickly and accurately deploy multiple accounts, reduce errors from manual entry, and ensure consistency across multiple servers.
+- `/usr/sbin/adduser --disabled-password --gecos ... <username>`
+- `echo -ne '<pw>\n<pw>' | sudo passwd <username>`
+- `/usr/sbin/adduser <username> <group>` (adds existing user to a supplementary group)
+
+It builds each user’s **GECOS** field as `First Last,,,'` (matches what you’ll see in `/etc/passwd`), sets the password, and assigns any listed groups.
 
 ---
 
 ## Program User Operation
-This program reads user information from an input file and creates each user and their associated groups automatically. After setting up the script and input file, the user can perform a “dry run” to preview the commands that would execute or run the script in normal mode to actually create the users.
+At a high level, the program:
 
-Before running the script, make sure:
-1. You are in the same directory as `create-users.py` and `create-users.input`.
-2. The Python file has executable permissions using:
-   ```bash
-   chmod +x create-users.py
+1. **Reads lines from STDIN** (the input file is redirected with `<`).
+2. **Skips** any line that starts with `#` (comment) or that doesn’t have the required 5 fields.
+3. **Parses** fields into: `username`, `password`, `last_name`, `first_name`, and `groups`.
+4. **Creates** the user with a proper GECOS string (`First Last,,,`), **sets the password**, and **adds group memberships**.
+5. Prints status messages as it goes so you can see what’s happening.
+
+### Input File Format
+Each line represents one user and must have **five** colon-separated fields:
+
