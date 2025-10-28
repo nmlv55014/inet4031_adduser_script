@@ -28,23 +28,11 @@ To run the script, open your terminal in the same directory that contains both `
 **1. Make the script executable:**
 ```bash
 chmod +x create-users.py
-2. Perform a dry run (safe test):
-
-bash
-Copy code
+#2. Perform a dry run (safe test):
+#Copy code
 ./create-users.py < create-users.input
-This prints the commands that would run without actually creating users.
-
-3. Run for real (apply changes):
-
-bash
-Copy code
+#This prints the commands that would run without actually creating users.
+#3. Run for real (apply changes):
+#Copy code
 sudo ./create-users.py < create-users.input
-Before doing this, make sure you’ve uncommented all os.system(cmd) lines in the script so it can actually execute the user and group creation commands.
-
-yaml
-Copy code
-
----
-
-
+#Before doing this, make sure you’ve uncommented all os.system(cmd) lines in the script so it can actually execute the user and group creation commands.
