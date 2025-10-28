@@ -29,7 +29,8 @@ To run the script, open your terminal in the same directory that contains both `
 ```bash
 chmod +x create-users.py
 ```
-#2. Perform a dry run (safe test):
+Additionally, make sure to make the .py executable within the code with a shebang (#!).
+### Dry run
 #Copy code
 ```bash
 ./create-users.py < create-users.input
