@@ -25,7 +25,7 @@ Each line represents one user and must have **five** colon-separated fields:
 
 ### Command Execution
 To run the script, open your terminal in the same directory that contains both `create-users.py` and `create-users.input`.
-**1. Make the script executable:**
+**To MakeMake the script executable:**
 ```bash
 chmod +x create-users.py
 ```
